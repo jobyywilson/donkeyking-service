@@ -240,20 +240,31 @@ public class SocketHandler extends TextWebSocketHandler {
         String sessionId = session.getId();
         logger.debug("[ws] {} is going to leave Room", sessionId);
         // room id taken by session id
-        String userId = sessionIdToUserIdMap.get(sessionId).get();
-        Room room = userIdToRoomMap.get(userId).get();
-        room.updateLeftUser(userId);
-//        if(!room.isGameInProgress()){
-//            // remove the client which leaves from the Room clients list
-//            Optional<String> clientOpty = roomService.getClients(room).entrySet().stream()
-//                    .filter(entry -> Objects.equals(entry.getValue().getUserId(), userId))
-//                    .map(Map.Entry::getKey)
-//                    .findAny();
-//
-//            clientOpty.ifPresent(c -> roomService.removeClientByName(room, c));
-//            userIdToRoomMap.remove(userId);
-//            sessionIdToUserIdMap.remove(sessionId);
-//        }
+
+        WeakReference<String> userIdWeakReference = sessionIdToUserIdMap.get(sessionId);
+        if(userIdWeakReference!=null){
+            String userId = userIdWeakReference.get();
+            Room room = userIdToRoomMap.get(userId).get();
+            room.updateLeftUser(userId);
+            if(!room.isGameInProgress()){
+                // remove the client which leaves from the Room clients list
+                Optional<String> clientOpty = roomService.getClients(room).entrySet().stream()
+                        .filter(entry -> Objects.equals(entry.getValue().getUserId(), userId))
+                        .map(Map.Entry::getKey)
+                        .findAny();
+
+                clientOpty.ifPresent(c -> roomService.removeClientByName(room, c));
+                userIdToRoomMap.remove(userId);
+                sessionIdToUserIdMap.remove(sessionId);
+                if(!room.getClients().isEmpty()){
+                    this.sendMessageToAll("leave",room,userId);
+                }
+            }
+
+        }
+
+
+
     }
 
     public void submitCard(WebSocketMessage message){
