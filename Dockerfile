@@ -1,3 +1,10 @@
+FROM maven:3.8.3-jdk-11 AS build
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+COPY src/ /app/src/
+RUN mvn package -DskipTests
+
 # Start with a base image containing Java runtime
 FROM openjdk:17-oracle
 
