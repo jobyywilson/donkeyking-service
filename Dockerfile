@@ -1,4 +1,4 @@
-FROM maven:3.8.3-openjdk-17 AS build
+FROM public.ecr.aws/lts/maven:3.8.3-openjdk-17 AS build
 WORKDIR /kaniko/buildcontext/app
 COPY pom.xml .
 RUN mvn dependency:go-offline
@@ -6,7 +6,7 @@ COPY src/ /app/src/
 RUN mvn clean install
 
 # Start with a base image containing Java runtime
-FROM openjdk:17-oracle
+FROM public.ecr.aws/lts/openjdk:17-oracle
 
 # Add Maintainer Info
 LABEL maintainer="Joby Wilson <jobyywilson@gmail.com>"
