@@ -12,7 +12,7 @@ FROM openjdk:17-oracle
 LABEL maintainer="Joby Wilson <jobyywilson@gmail.com>"
 
 # Set the working directory to /app
-WORKDIR /app
+WORKDIR /app1
 
 # Copy the packaged JAR file into the container at /app
 ARG JAR_FILE=app1/target/donkeyking-service-1.0-SNAPSHOT.jar
