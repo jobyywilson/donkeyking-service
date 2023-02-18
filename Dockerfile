@@ -1,5 +1,5 @@
 # Start with a base image containing Java runtime
-FROM adoptopenjdk/openjdk17:alpine-jre
+FROM openjdk:17-oracle
 
 # Add Maintainer Info
 LABEL maintainer="Joby Wilson <jobyywilson@gmail.com>"
