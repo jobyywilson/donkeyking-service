@@ -29,6 +29,7 @@
                             <mainClass>com.donkeyking.service.Application</mainClass>
                         </manifest>
                     </archive>
+                    <finalName>${project.build.finalName}</finalName>
                 </configuration>
             </plugin>
         </plugins>
