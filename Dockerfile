@@ -15,7 +15,7 @@ LABEL maintainer="Joby Wilson <jobyywilson@gmail.com>"
 WORKDIR /app
 
 # Copy the packaged JAR file into the container at /app
-ARG JAR_FILE=target/donkeyking-service-1.0-SNAPSHOT.jar
+ARG JAR_FILE=/app/target/donkeyking-service-1.0-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
 
 # Make port 8080 available to the world outside this container
