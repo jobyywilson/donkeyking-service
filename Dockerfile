@@ -3,7 +3,7 @@ WORKDIR /app
 COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src/ /app/src/
-RUN mvn package -DskipTests
+RUN mvn clean install
 
 # Start with a base image containing Java runtime
 FROM openjdk:17-oracle
