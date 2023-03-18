@@ -6,7 +6,7 @@ COPY src/ /app/src/
 RUN mvn clean install
 
 # Start with a base image containing Java runtime
-FROM public.ecr.aws/lts/openjdk:17-oracle
+FROM openjdk:17-jdk-slim
 
 # Add Maintainer Info
 LABEL maintainer="Joby Wilson <jobyywilson@gmail.com>"
