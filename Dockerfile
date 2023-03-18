@@ -1,4 +1,4 @@
-FROM public.ecr.aws/lts/maven:3.8.3-openjdk-17 AS build
+FROM maven:3.8.4-openjdk-17 as BUILD
 WORKDIR /kaniko/buildcontext/app
 COPY pom.xml .
 RUN mvn dependency:go-offline
